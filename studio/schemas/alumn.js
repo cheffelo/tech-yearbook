@@ -1,4 +1,4 @@
-export default {
+const alumn = {
   name: "alumn",
   title: "Alumn",
   type: "document",
@@ -26,6 +26,39 @@ export default {
       },
     },
     {
+      name: "questionnaire",
+      title: "Questionnaire",
+      type: "array",
+      of: [
+        {
+          name: "answer",
+          title: "Answer",
+          type: "object",
+          fields: [
+            {
+              name: "question",
+              title: "Question",
+              type: "reference",
+              to: [{ type: "question" }],
+            },
+            {
+              name: "answer",
+              title: "Answer",
+              type: "array",
+              of: [
+                {
+                  title: "Block",
+                  type: "block",
+                  styles: [{ title: "Normal", value: "normal" }],
+                  lists: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: "bio",
       title: "Bio",
       type: "array",
@@ -46,3 +79,5 @@ export default {
     },
   },
 };
+
+export default alumn;

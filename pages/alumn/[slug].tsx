@@ -1,6 +1,7 @@
 import groq from "groq";
 import { GetStaticProps, NextPage } from "next";
 import { ParsedUrlQuery } from "querystring";
+import BlockContent from "../../components/BlockContent";
 
 import client from "../../lib/sanity/client";
 
@@ -13,7 +14,28 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Alumn: NextPage<Props> = ({ alumn }) => {
-  return <div>{JSON.stringify(alumn)}</div>;
+  const { name, questionnaire = [], bio } = alumn;
+
+  return (
+    <article>
+      <h1>{name}</h1>
+      <p>
+        <BlockContent blocks={bio} />
+      </p>
+      {questionnaire.map((d) => {
+        const { question, answer } = d;
+
+        return (
+          <div key={d._key}>
+            <h2>PLACEHOLDER</h2>
+            <p>
+              <BlockContent blocks={answer} />
+            </p>
+          </div>
+        );
+      })}
+    </article>
+  );
 };
 
 export const getStaticPaths = async () => {
@@ -29,13 +51,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params = {} }) => {
   const alumn = await client.fetch(
-    `
-    *[_type == "alumn" && slug.current == $slug][0]
-  `,
+    groq`*[_type == "alumn" && slug.current == $slug][0]{ ..., questionnaire[]{ ... } }`,
     { slug: params.slug || "" }
   );
-
-  console.log("alumn", alumn);
 
   return {
     props: {
