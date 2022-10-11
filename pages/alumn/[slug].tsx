@@ -19,7 +19,7 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const Alumn: NextPage<Props> = ({ alumn }) => {
+const Alumn: NextPage<Props> = ({ alumn = {} }) => {
   const { name, questionnaire = [], bio, image } = alumn;
 
   return (
@@ -47,7 +47,7 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
             <Grid stackable columns={2}>
               <Grid.Column style={{ position: "relative", minHeight: "24rem" }}>
                 <Image
-                  src={urlFor(alumn.image).url()}
+                  src={urlFor(image).url()}
                   layout="fill"
                   objectFit="cover"
                 />
