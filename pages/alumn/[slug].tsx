@@ -19,7 +19,7 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const Alumn: NextPage<Props> = ({ alumn = {} }) => {
+const Alumn: NextPage<Props> = ({ alumn }) => {
   const { name, questionnaire = [], bio, image } = alumn;
 
   if (!alumn) {
