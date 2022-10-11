@@ -38,8 +38,7 @@ const alumn = {
             {
               name: "question",
               title: "Question",
-              type: "reference",
-              to: [{ type: "question" }],
+              type: "string",
             },
             {
               name: "answer",

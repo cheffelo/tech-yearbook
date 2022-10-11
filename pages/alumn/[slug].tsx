@@ -1,9 +1,13 @@
 import groq from "groq";
 import { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
+import { Container, Divider, Grid, Header, Segment } from "semantic-ui-react";
 import BlockContent from "../../components/BlockContent";
 
 import client from "../../lib/sanity/client";
+import { urlFor } from "../../lib/sanity/urlFor";
 
 interface Props {
   alumn: any;
@@ -14,27 +18,54 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Alumn: NextPage<Props> = ({ alumn }) => {
-  const { name, questionnaire = [], bio } = alumn;
+  const { name, questionnaire = [], bio, image } = alumn;
 
   return (
-    <article>
-      <h1>{name}</h1>
-      <p>
-        <BlockContent blocks={bio} />
-      </p>
-      {questionnaire.map((d) => {
-        const { question, answer } = d;
+    <>
+      <Head>
+        <title>{name}</title>
+      </Head>
 
-        return (
-          <div key={d._key}>
-            <h2>PLACEHOLDER</h2>
-            <p>
-              <BlockContent blocks={answer} />
-            </p>
-          </div>
-        );
-      })}
-    </article>
+      <Container style={{ marginTop: "3rem" }}>
+        <Header as="h1">{name}</Header>
+        <Segment>
+          <Grid stackable columns={2}>
+            <Grid.Column style={{ position: "relative", minHeight: "24rem" }}>
+              <Image
+                src={urlFor(alumn.image).url()}
+                layout="fill"
+                objectFit="cover"
+              />
+            </Grid.Column>
+            <Grid.Column>
+              <p>
+                <BlockContent blocks={bio} />
+              </p>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+
+        <Segment>
+          <Grid stackable columns={1}>
+            {questionnaire.map((d) => {
+              const { question, answer } = d;
+
+              return (
+                <Grid.Column key={d._key}>
+                  <p>
+                    <strong>{question}</strong>
+                  </p>
+
+                  <p>
+                    <BlockContent blocks={answer} />
+                  </p>
+                </Grid.Column>
+              );
+            })}
+          </Grid>
+        </Segment>
+      </Container>
+    </>
   );
 };
 
@@ -59,6 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ params = {} }) => {
     props: {
       alumn,
     },
+    revalidate: 10,
   };
 };
 
