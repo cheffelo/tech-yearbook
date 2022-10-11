@@ -22,6 +22,10 @@ interface Params extends ParsedUrlQuery {
 const Alumn: NextPage<Props> = ({ alumn = {} }) => {
   const { name, questionnaire = [], bio, image } = alumn;
 
+  if (!alumn) {
+    return null;
+  }
+
   return (
     <>
       <Head>
