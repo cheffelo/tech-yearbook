@@ -3,7 +3,9 @@ import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
-import { Container, Divider, Grid, Header, Segment } from "semantic-ui-react";
+import { Container, Grid, Header, List, Segment } from "semantic-ui-react";
+import { motion, AnimatePresence } from "framer-motion";
+
 import BlockContent from "../../components/BlockContent";
 
 import client from "../../lib/sanity/client";
@@ -25,46 +27,60 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
       <Head>
         <title>{name}</title>
       </Head>
+      <AnimatePresence>
+        <Container style={{ padding: "3rem 0 6rem 0" }}>
+          <motion.div
+            initial={{ x: 200 }}
+            animate={{ x: 0 }}
+            exit={{ x: -200 }}
+          >
+            <Header as="h1">{name}</Header>
+          </motion.div>
 
-      <Container style={{ marginTop: "3rem" }}>
-        <Header as="h1">{name}</Header>
-        <Segment>
-          <Grid stackable columns={2}>
-            <Grid.Column style={{ position: "relative", minHeight: "24rem" }}>
-              <Image
-                src={urlFor(alumn.image).url()}
-                layout="fill"
-                objectFit="cover"
-              />
-            </Grid.Column>
-            <Grid.Column>
-              <p>
-                <BlockContent blocks={bio} />
-              </p>
-            </Grid.Column>
-          </Grid>
-        </Segment>
+          <Segment
+            as={motion.div}
+            initial={{ x: 200 }}
+            animate={{ x: 0 }}
+            exit={{ x: -200 }}
+            piled
+          >
+            <Grid stackable columns={2}>
+              <Grid.Column style={{ position: "relative", minHeight: "24rem" }}>
+                <Image
+                  src={urlFor(alumn.image).url()}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <p>
+                  <BlockContent blocks={bio} />
+                </p>
+              </Grid.Column>
+            </Grid>
+          </Segment>
 
-        <Segment>
-          <Grid stackable columns={1}>
-            {questionnaire.map((d) => {
-              const { question, answer } = d;
+          <Segment>
+            <List divided>
+              {questionnaire.map((d) => {
+                const { question, answer } = d;
 
-              return (
-                <Grid.Column key={d._key}>
-                  <p>
-                    <strong>{question}</strong>
-                  </p>
+                return (
+                  <List.Item style={{ margin: "1rem 0" }} key={d._key}>
+                    <List.Content>
+                      <List.Header style={{ margin: "1rem 0" }}>
+                        {question}
+                      </List.Header>
 
-                  <p>
-                    <BlockContent blocks={answer} />
-                  </p>
-                </Grid.Column>
-              );
-            })}
-          </Grid>
-        </Segment>
-      </Container>
+                      <BlockContent blocks={answer} />
+                    </List.Content>
+                  </List.Item>
+                );
+              })}
+            </List>
+          </Segment>
+        </Container>
+      </AnimatePresence>
     </>
   );
 };
