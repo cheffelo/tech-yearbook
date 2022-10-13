@@ -9,6 +9,7 @@ specifiers:
   '@sanity/block-content-to-react': ^3.0.0
   '@sanity/client': ^3.4.1
   '@sanity/image-url': ^1.0.1
+  '@tabler/icons': ^1.103.0
   '@types/node': ^18.8.4
   '@types/react': ^18.0.21
   eslint: 8.25.0
@@ -29,6 +30,7 @@ dependencies:
   '@sanity/block-content-to-react': 3.0.0_react@18.2.0
   '@sanity/client': 3.4.1
   '@sanity/image-url': 1.0.1
+  '@tabler/icons': 1.103.0_biqbaboplfbrettd7655fr4n2y
   framer-motion: 7.5.3_biqbaboplfbrettd7655fr4n2y
   groq: 2.33.2
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
@@ -764,6 +766,21 @@ packages:
     resolution: {integrity: sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw==}
     dependencies:
       tslib: 2.4.0
+    dev: false
+
+  /@tabler/icons/1.103.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-oXUNf/Bn+88Xm+uWVht9MRRB/usDtjNrzKr7XhlB1P6V4vpWdG68OMffEONDbFqvEMC/eGYfhLI/PUHsR2XN4A==}
+    peerDependencies:
+      react: ^16.x || 17.x || 18.x
+      react-dom: ^16.x || 17.x || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@types/json5/0.0.29:

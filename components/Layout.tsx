@@ -1,4 +1,14 @@
-import { AppShell } from "@mantine/core";
+import {
+  AppShell,
+  Box,
+  Breadcrumbs,
+  Divider,
+  Group,
+  Header,
+  Title,
+} from "@mantine/core";
+import { Icon3dRotate, IconMoodNerd } from "@tabler/icons";
+import Link from "next/link";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -7,14 +17,21 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <AppShell
-      styles={{
-        root: {
-          background:
-            "linear-gradient(0deg, rgba(230,230,230,0) 0%, rgba(248,248,248,1) 50%)",
-        },
-      }}
+      header={
+        <Box p="lg">
+          <Header height={60} style={{ background: "transparent" }}>
+            <Link href="/" passHref>
+              <a style={{ textDecoration: "none", color: "black" }}>
+                <Title order={1}>WE ARE TECH</Title>
+              </a>
+            </Link>
+          </Header>
+          <Divider />
+        </Box>
+      }
+      fixed={false}
     >
-      {children}
+      <div>{children}</div>
     </AppShell>
   );
 };
