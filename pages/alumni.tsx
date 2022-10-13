@@ -1,12 +1,13 @@
+import { Card, Container, Group, SimpleGrid, Text, Title } from "@mantine/core";
 import { AnimatePresence } from "framer-motion";
 import groq from "groq";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, Container, Grid, Header } from "semantic-ui-react";
+
 import BlockContent from "../components/BlockContent";
-import client from "../lib/sanity/client";
+import { client } from "../lib/sanity/client";
 import { urlFor } from "../lib/sanity/urlFor";
 
 const Alumni = ({ alumni }) => {
@@ -15,47 +16,57 @@ const Alumni = ({ alumni }) => {
       <Head>
         <title>Alumni</title>
       </Head>
-      <AnimatePresence>
-        <Container style={{ padding: "3rem 0 6rem 0" }}>
-          <Header as="h1">Alumni</Header>
 
-          <Grid stackable columns={4}>
-            {alumni.map((alumn) => (
-              <Grid.Column key={alumn._id}>
-                <Link href={`/alumn/${alumn.slug.current}`}>
-                  <Card as="a">
-                    <div style={{ position: "relative", height: "16rem" }}>
-                      <Image
-                        src={urlFor(alumn.image).width(768).url()}
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                    <Card.Content>
-                      <Card.Header>{alumn.name}</Card.Header>
-                      <Card.Description
-                        style={{
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          height: "8rem",
-                          margin: "1rem 0",
-                        }}
-                      >
-                        <BlockContent blocks={alumn.bio} />
-                      </Card.Description>
-                    </Card.Content>
-                  </Card>
-                </Link>
-              </Grid.Column>
-            ))}
-          </Grid>
-        </Container>
-      </AnimatePresence>
+      <Container>
+        <Title order={1} my="lg">
+          Alumni
+        </Title>
+
+        <SimpleGrid
+          breakpoints={[
+            { cols: 1 },
+            { minWidth: "xs", cols: 2 },
+            { minWidth: "lg", cols: 4 },
+          ]}
+        >
+          {alumni.map((alumn) => (
+            <Link
+              href={`/alumn/${alumn.slug.current}`}
+              key={alumn._id}
+              passHref
+            >
+              <a style={{ textDecoration: "none" }}>
+                <Card shadow="sm">
+                  <Card.Section style={{ position: "relative" }}>
+                    <Image
+                      alt={alumn.name}
+                      src={urlFor(alumn.image).width(768).url()}
+                      width={320}
+                      height={240}
+                      layout="responsive"
+                      objectFit="cover"
+                    />
+                  </Card.Section>
+
+                  <Group position="apart" mt="md" mb="xs">
+                    <Text size="lg" weight="bold">
+                      {alumn.name}
+                    </Text>
+                    <Text size="sm" lineClamp={6}>
+                      <BlockContent blocks={alumn.bio} />
+                    </Text>
+                  </Group>
+                </Card>
+              </a>
+            </Link>
+          ))}
+        </SimpleGrid>
+      </Container>
     </>
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params = {} }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const alumni = await client.fetch(groq`*[_type == "alumn"]`);
 
   return {
