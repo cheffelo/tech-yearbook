@@ -2,24 +2,26 @@ import groq from "groq";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
-
-import { motion, AnimatePresence } from "framer-motion";
 
 import BlockContent from "../../components/BlockContent";
 
 import { client } from "../../lib/sanity/client";
 import { urlFor } from "../../lib/sanity/urlFor";
 import {
-  Box,
+  Blockquote,
+  Card,
   Container,
+  Divider,
+  Grid,
   Group,
   List,
-  SimpleGrid,
-  Stack,
   Text,
   Title,
 } from "@mantine/core";
+
+import { IconArrowLeft } from "@tabler/icons";
 
 interface Props {
   alumn: any;
@@ -41,45 +43,72 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
       <Head>
         <title>{name}</title>
       </Head>
-      <AnimatePresence>
-        <Container py={6}>
-          <Title order={1} my="lg">
-            {name}
-          </Title>
 
-          <SimpleGrid breakpoints={[{ cols: 1 }, { minWidth: "xs", cols: 2 }]}>
-            <div style={{ position: "relative" }}>
-              <Image
-                alt={name}
-                src={urlFor(image).url()}
-                layout="responsive"
-                width={2}
-                height={3}
-                objectFit="contain"
-              />
-            </div>
+      <Container>
+        <Text size="sm">
+          <Link href="/" passHref>
+            <a>
+              <Group align="center">
+                <IconArrowLeft style={{ color: "black" }} /> Back
+              </Group>
+            </a>
+          </Link>
+        </Text>
 
-            <Text>
-              <BlockContent blocks={bio} />
-            </Text>
-          </SimpleGrid>
+        <Title order={1} mb="lg">
+          {name}
+        </Title>
 
-          <Group>
-            <List>
-              {questionnaire.map((d) => {
-                const { question, answer } = d;
+        <Grid justify="start">
+          <Grid.Col sm={6}>
+            <Card radius="md">
+              <Card.Section>
+                <Image
+                  alt={name}
+                  src={urlFor(image).url()}
+                  layout="responsive"
+                  width={2}
+                  height={3}
+                  objectFit="cover"
+                />
+              </Card.Section>
 
-                return (
-                  <List.Item key={d._key}>
-                    <Text size="lg">{question}</Text>
-                    <BlockContent blocks={answer} />
-                  </List.Item>
-                );
-              })}
-            </List>
-          </Group>
-        </Container>
-      </AnimatePresence>
+              <Blockquote>
+                <Text size="lg" weight="bold">
+                  You miss 100% of the shots you don&apos;t take. - Wayne
+                  Gretzky
+                </Text>
+                <Text size="sm" weight="bold" align="right">
+                  - Michael Scott
+                </Text>
+              </Blockquote>
+            </Card>
+          </Grid.Col>
+
+          <Grid.Col sm={6}>
+            <Card p="lg" radius="lg" mb="sm">
+              <Text>
+                <BlockContent blocks={bio} />
+              </Text>
+            </Card>
+
+            <Card p="lg" radius="lg">
+              <List>
+                {questionnaire.map((d) => {
+                  const { question, answer } = d;
+
+                  return (
+                    <List.Item key={d._key}>
+                      <Text size="lg">{question}</Text>
+                      <BlockContent blocks={answer} />
+                    </List.Item>
+                  );
+                })}
+              </List>
+            </Card>
+          </Grid.Col>
+        </Grid>
+      </Container>
     </>
   );
 };
