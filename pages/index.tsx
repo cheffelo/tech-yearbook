@@ -102,7 +102,7 @@ const Index = ({ alumni, gallery }) => {
               return (
                 <Carousel.Slide
                   size={`${Math.floor(
-                    image.asset.metadata.dimensions.aspectRatio * 67
+                    image.asset.metadata.dimensions.aspectRatio * 40
                   )}%`}
                   key={image._id}
                 >

@@ -29,16 +29,15 @@ const Layout = ({ children }: LayoutProps) => {
     <AnimatePresence mode="popLayout" initial={false}>
       <AppShell
         header={
-          <Box p="lg">
-            <Header height={60} style={{ background: "transparent" }}>
+          <Header height={50} style={{ background: "rgb(228,228,228)" }}>
+            <Container>
               <Link href="/" passHref>
                 <a style={{ textDecoration: "none", color: "black" }}>
                   <Title order={1}>WE ARE TECH</Title>
                 </a>
               </Link>
-            </Header>
-            <Divider />
-          </Box>
+            </Container>
+          </Header>
         }
         footer={
           <Footer height={80} style={{ backgroundColor: "rgb(222,222,222)" }}>
@@ -48,14 +47,18 @@ const Layout = ({ children }: LayoutProps) => {
             </Container>
           </Footer>
         }
-        fixed={false}
         styles={{
-          main: { display: "flex", flexDirection: "column" },
+          main: {
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "#f0f0f0",
+          },
           root: { display: "flex", flexDirection: "column", flex: 1 },
           body: { display: "flex", flexDirection: "column", flex: 1 },
         }}
+        fixed={false}
       >
-        <motion.div style={{ flexGrow: "1" }} layout>
+        <motion.div style={{ flexGrow: "1", paddingBottom: "2rem" }} layout>
           {children}
         </motion.div>
 
