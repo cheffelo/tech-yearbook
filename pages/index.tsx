@@ -75,7 +75,7 @@ const Index = ({ alumni, gallery }) => {
                         {alumn.name}
                       </Text>
                       <Text size="sm" lineClamp={6}>
-                        <BlockContent blocks={alumn.bio} />
+                        <BlockContent value={alumn.bio} />
                       </Text>
                     </Group>
                   </Card>

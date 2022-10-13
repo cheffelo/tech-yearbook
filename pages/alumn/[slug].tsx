@@ -44,7 +44,7 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
       </Head>
 
       <Container>
-        <Text size="sm">
+        <Text size="sm" mb="lg">
           <Link href="/" passHref>
             <a>
               <Group align="center">
@@ -80,6 +80,9 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
                 <Text size="sm" weight="bold" align="right">
                   - Michael Scott
                 </Text>
+                <Text size="xs" weight="bold" align="right">
+                  - {name}
+                </Text>
               </Blockquote>
             </Card>
           </Grid.Col>
@@ -87,7 +90,7 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
           <Grid.Col sm={6}>
             <Card p="lg" radius="lg" mb="sm">
               <Text>
-                <BlockContent blocks={bio} />
+                <BlockContent value={bio} />
               </Text>
             </Card>
 
@@ -99,7 +102,7 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
                   return (
                     <List.Item key={d._key}>
                       <Text size="lg">{question}</Text>
-                      <BlockContent blocks={answer} />
+                      <BlockContent value={answer} />
                     </List.Item>
                   );
                 })}

@@ -1,8 +1,8 @@
-import SanityBlockContent from "@sanity/block-content-to-react";
+import { PortableText } from "@portabletext/react";
 import dynamic from "next/dynamic";
 
-const BlockContent = (props) => {
-  return <SanityBlockContent {...props} />;
+const BlockContent: typeof PortableText = (props) => {
+  return <PortableText {...props} />;
 };
 
 export default dynamic(() => Promise.resolve(BlockContent), { ssr: false });
