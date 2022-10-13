@@ -153,7 +153,7 @@ const Index = ({ alumni, gallery }) => {
 export const getStaticProps: GetStaticProps = async ({ preview }) => {
   const alumni = await client({ preview }).fetch(groq`*[_type == "alumn"]`);
   const gallery = await client({ preview }).fetch(
-    groq`*[_type == "gallery" && slug.current == "main-gallery"][0]`
+    groq`*[_type == "gallery" && slug.current == "main-gallery"]|order(_updatedAt desc)[0]`
   );
 
   return {

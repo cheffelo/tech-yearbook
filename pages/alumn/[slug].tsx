@@ -129,7 +129,7 @@ export const getStaticProps: GetStaticProps = async ({
   preview,
 }) => {
   const alumn = await client({ preview }).fetch(
-    groq`*[_type == "alumn" && slug.current == $slug][0]{ ..., questionnaire[]{ ... } }`,
+    groq`*[_type == "alumn" && slug.current == $slug]|order(_updatedAt desc)[0]{ ..., questionnaire[]{ ... } }`,
     { slug: params.slug || "" }
   );
 
