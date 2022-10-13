@@ -114,7 +114,7 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
 };
 
 export const getStaticPaths = async () => {
-  const paths = await client.fetch<Params[]>(
+  const paths = await client().fetch<Params[]>(
     groq`*[_type == "alumn" && defined(slug.current)][].slug.current`
   );
 
@@ -124,9 +124,12 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params = {} }) => {
-  const alumn = await client.fetch(
-    groq`*[_type == "alumn" && slug.current == $slug][0]{ ..., questionnaire[]{ ... } }`,
+export const getStaticProps: GetStaticProps = async ({
+  params = {},
+  preview,
+}) => {
+  const alumn = await client({ preview }).fetch(
+    groq`*[_type == "alumn" && slug.current == $slug]|order(_updatedAt desc)[0]{ ..., questionnaire[]{ ... } }`,
     { slug: params.slug || "" }
   );
 
