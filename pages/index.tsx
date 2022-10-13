@@ -12,13 +12,15 @@ import {
   Stack,
   Text,
   Title,
+  UnstyledButton,
 } from "@mantine/core";
-import { Carousel } from "@mantine/carousel";
+import { Carousel, Embla } from "@mantine/carousel";
 
 import BlockContent from "../components/BlockContent";
 import { client } from "../lib/sanity/client";
 import { urlFor } from "../lib/sanity/urlFor";
 import { IconArrowRight } from "@tabler/icons";
+import { useState } from "react";
 
 const Index = ({ alumni, gallery }) => {
   return (
@@ -83,9 +85,9 @@ const Index = ({ alumni, gallery }) => {
           </SimpleGrid>
 
           <Group position="apart">
-            <Title order={2}>Gallery</Title>
+            <Title order={2}>Photos</Title>
             <Text size="sm">
-              <Link href="/gallery" passHref>
+              <Link href="/photos" passHref>
                 <a>
                   <Group align="center">
                     See all <IconArrowRight style={{ color: "black" }} />
@@ -95,54 +97,28 @@ const Index = ({ alumni, gallery }) => {
             </Text>
           </Group>
 
-          <Carousel
-            height={400}
-            slideSize="70%"
-            align="center"
-            slideGap="md"
-            loop
-            dragFree
-            withIndicators
-          >
-            {gallery.images.map((image) => (
-              <Carousel.Slide key={image._id}>
-                <Stack
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    position: "relative",
-                  }}
+          <Carousel align="center" slideGap="md" withIndicators loop>
+            {gallery.images.map((image) => {
+              return (
+                <Carousel.Slide
+                  size={`${Math.floor(
+                    image.asset.metadata.dimensions.aspectRatio * 67
+                  )}%`}
+                  key={image._id}
                 >
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     alt={image.alt}
-                    src="null"
-                    loader={({ width }) =>
-                      urlFor(image).width(width).quality(75).url()
-                    }
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center center"
+                    src={urlFor(image).width(720).quality(75).url()}
+                    width={Math.floor(
+                      image.asset.metadata.dimensions.aspectRatio * 500
+                    )}
+                    height={500}
+                    loading="lazy"
                   />
-                  {image.caption && (
-                    <Text
-                      style={{
-                        zIndex: 10,
-                        position: "absolute",
-                        bottom: 10,
-                        left: 10,
-                        color: "white",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        padding: "0.5rem",
-                        // frosted background
-                        backdropFilter: "blur(10px)",
-                      }}
-                    >
-                      {image.caption}
-                    </Text>
-                  )}
-                </Stack>
-              </Carousel.Slide>
-            ))}
+                </Carousel.Slide>
+              );
+            })}
           </Carousel>
         </Stack>
       </Container>
@@ -153,7 +129,7 @@ const Index = ({ alumni, gallery }) => {
 export const getStaticProps: GetStaticProps = async ({ preview }) => {
   const alumni = await client({ preview }).fetch(groq`*[_type == "alumn"]`);
   const gallery = await client({ preview }).fetch(
-    groq`*[_type == "gallery" && slug.current == "main-gallery"]|order(_updatedAt desc)[0]`
+    groq`*[_type == "gallery" && slug.current == "main-gallery"]|order(_updatedAt desc)[0]{ ..., images[]{..., asset->{...} } }`
   );
 
   return {

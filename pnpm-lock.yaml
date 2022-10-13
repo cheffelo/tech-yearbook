@@ -8,6 +8,7 @@ specifiers:
   '@mantine/hooks': ^5.5.5
   '@mantine/modals': ^5.5.5
   '@mantine/next': ^5.5.5
+  '@mantine/nprogress': ^5.5.5
   '@sanity/block-content-to-react': ^3.0.0
   '@sanity/client': ^3.4.1
   '@sanity/image-url': ^1.0.1
@@ -32,6 +33,7 @@ dependencies:
   '@mantine/hooks': 5.5.5_react@18.2.0
   '@mantine/modals': 5.5.5_sboc75uudxrw5k7gcptvtad4eq
   '@mantine/next': 5.5.5_6tawbrm53n4muonpugu7ldclma
+  '@mantine/nprogress': 5.5.5_sboc75uudxrw5k7gcptvtad4eq
   '@sanity/block-content-to-react': 3.0.0_react@18.2.0
   '@sanity/client': 3.4.1
   '@sanity/image-url': 1.0.1
@@ -389,6 +391,21 @@ packages:
     transitivePeerDependencies:
       - '@emotion/react'
       - '@emotion/server'
+    dev: false
+
+  /@mantine/nprogress/5.5.5_sboc75uudxrw5k7gcptvtad4eq:
+    resolution: {integrity: sha512-wlqeZec19BU7udnIKbs5ghR2lTKLdjmTCUx4MYRtHvOwsOJnpbA+1XU7FHwVtlufj1HF2ATx2ODiT56P2GAbtQ==}
+    peerDependencies:
+      '@mantine/core': 5.5.5
+      '@mantine/hooks': 5.5.5
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 5.5.5_ekj4xtn5nqtot2bmww23lp2qbq
+      '@mantine/hooks': 5.5.5_react@18.2.0
+      '@mantine/utils': 5.5.5_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@mantine/ssr/5.5.5_prwajplxorzrjsqgai7usnvxze:

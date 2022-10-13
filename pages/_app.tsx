@@ -2,7 +2,12 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 
 import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
+
 import Layout from "../components/Layout";
+import { RouterTransition } from "../components/RouterTransition";
+
+import "../global.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -23,9 +28,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           colorScheme: "light",
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ModalsProvider>
+          <RouterTransition />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ModalsProvider>
       </MantineProvider>
     </>
   );
