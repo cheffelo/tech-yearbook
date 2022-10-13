@@ -1,13 +1,5 @@
-import {
-  AppShell,
-  Box,
-  Breadcrumbs,
-  Divider,
-  Group,
-  Header,
-  Title,
-} from "@mantine/core";
-import { Icon3dRotate, IconMoodNerd } from "@tabler/icons";
+import { AppShell, Box, Divider, Header, Title } from "@mantine/core";
+
 import Link from "next/link";
 
 interface LayoutProps {

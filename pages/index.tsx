@@ -1,3 +1,9 @@
+import { GetStaticProps } from "next";
+import groq from "groq";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   Card,
   Container,
@@ -7,18 +13,14 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { GetStaticProps } from "next";
-import groq from "groq";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+import { Carousel } from "@mantine/carousel";
 
 import BlockContent from "../components/BlockContent";
 import { client } from "../lib/sanity/client";
 import { urlFor } from "../lib/sanity/urlFor";
 import { IconArrowRight } from "@tabler/icons";
 
-const Index = ({ alumni }) => {
+const Index = ({ alumni, gallery }) => {
   return (
     <>
       <Head>
@@ -93,27 +95,71 @@ const Index = ({ alumni }) => {
             </Text>
           </Group>
 
-          <SimpleGrid
-            breakpoints={[
-              { cols: 1 },
-              { minWidth: "xs", cols: 2 },
-              { minWidth: "lg", cols: 4 },
-            ]}
+          <Carousel
+            height={400}
+            slideSize="70%"
+            align="center"
+            slideGap="md"
+            loop
+            dragFree
+            withIndicators
           >
-            NYI
-          </SimpleGrid>
+            {gallery.images.map((image) => (
+              <Carousel.Slide key={image._id}>
+                <Stack
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    alt={image.alt}
+                    src="null"
+                    loader={({ width }) =>
+                      urlFor(image).width(width).quality(75).url()
+                    }
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center center"
+                  />
+                  {image.caption && (
+                    <Text
+                      style={{
+                        zIndex: 10,
+                        position: "absolute",
+                        bottom: 10,
+                        left: 10,
+                        color: "white",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        padding: "0.5rem",
+                        // frosted background
+                        backdropFilter: "blur(10px)",
+                      }}
+                    >
+                      {image.caption}
+                    </Text>
+                  )}
+                </Stack>
+              </Carousel.Slide>
+            ))}
+          </Carousel>
         </Stack>
       </Container>
     </>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const alumni = await client.fetch(groq`*[_type == "alumn"]`);
+export const getStaticProps: GetStaticProps = async ({ preview }) => {
+  const alumni = await client({ preview }).fetch(groq`*[_type == "alumn"]`);
+  const gallery = await client({ preview }).fetch(
+    groq`*[_type == "gallery" && slug.current == "main-gallery"][0]`
+  );
 
   return {
     props: {
       alumni,
+      gallery,
     },
     revalidate: 10,
   };

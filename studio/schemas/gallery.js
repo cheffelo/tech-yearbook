@@ -36,6 +36,11 @@ const gallery = {
               type: "string",
               title: "Alternative text",
             },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+            },
           ],
         },
       ],
@@ -43,38 +48,19 @@ const gallery = {
         layout: "grid",
       },
     },
-    {
-      name: "display",
-      type: "string",
-      title: "Display as",
-      description: "How should we display these images?",
-      options: {
-        list: [
-          { title: "Stacked on top of eachother", value: "stacked" },
-          { title: "In-line", value: "inline" },
-          { title: "Carousel", value: "carousel" },
-        ],
-        layout: "radio", // <-- defaults to 'dropdown'
-      },
-    },
-    {
-      name: "zoom",
-      type: "boolean",
-      title: "Zoom enabled",
-      description: "Should we enable zooming of images?",
-    },
   ],
   preview: {
     select: {
+      name: "name",
       images: "images",
       image: "images.0",
     },
     prepare(selection) {
-      const { images, image } = selection;
+      const { images, image, name } = selection;
 
       return {
-        title: `Gallery block of ${Object.keys(images).length} images`,
-        subtitle: `Alt text: ${image.alt}`,
+        title: name,
+        subtitle: `Gallery block of ${Object.keys(images).length} images`,
         media: image,
       };
     },
