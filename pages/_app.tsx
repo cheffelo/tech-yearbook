@@ -1,7 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import "semantic-ui-css/semantic.min.css";
+import { MantineProvider } from "@mantine/core";
+import Layout from "../components/Layout";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +15,18 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <Component {...pageProps} />
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          /** Put your mantine theme override here */
+          colorScheme: "light",
+        }}
+      >
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </MantineProvider>
     </>
   );
 }

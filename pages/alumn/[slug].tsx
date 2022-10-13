@@ -3,13 +3,23 @@ import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
-import { Container, Grid, Header, List, Segment } from "semantic-ui-react";
+
 import { motion, AnimatePresence } from "framer-motion";
 
 import BlockContent from "../../components/BlockContent";
 
-import client from "../../lib/sanity/client";
+import { client } from "../../lib/sanity/client";
 import { urlFor } from "../../lib/sanity/urlFor";
+import {
+  Box,
+  Container,
+  Group,
+  List,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 
 interface Props {
   alumn: any;
@@ -32,57 +42,42 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
         <title>{name}</title>
       </Head>
       <AnimatePresence>
-        <Container style={{ padding: "3rem 0 6rem 0" }}>
-          <motion.div
-            initial={{ x: 200 }}
-            animate={{ x: 0 }}
-            exit={{ x: -200 }}
-          >
-            <Header as="h1">{name}</Header>
-          </motion.div>
+        <Container py={6}>
+          <Title order={1} my="lg">
+            {name}
+          </Title>
 
-          <Segment
-            as={motion.div}
-            initial={{ x: 200 }}
-            animate={{ x: 0 }}
-            exit={{ x: -200 }}
-            piled
-          >
-            <Grid stackable columns={2}>
-              <Grid.Column style={{ position: "relative", minHeight: "24rem" }}>
-                <Image
-                  src={urlFor(image).url()}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </Grid.Column>
-              <Grid.Column>
-                <p>
-                  <BlockContent blocks={bio} />
-                </p>
-              </Grid.Column>
-            </Grid>
-          </Segment>
+          <SimpleGrid breakpoints={[{ cols: 1 }, { minWidth: "xs", cols: 2 }]}>
+            <div style={{ position: "relative" }}>
+              <Image
+                alt={name}
+                src={urlFor(image).url()}
+                layout="responsive"
+                width={2}
+                height={3}
+                objectFit="contain"
+              />
+            </div>
 
-          <Segment>
-            <List divided>
+            <Text>
+              <BlockContent blocks={bio} />
+            </Text>
+          </SimpleGrid>
+
+          <Group>
+            <List>
               {questionnaire.map((d) => {
                 const { question, answer } = d;
 
                 return (
-                  <List.Item style={{ margin: "1rem 0" }} key={d._key}>
-                    <List.Content>
-                      <List.Header style={{ margin: "1rem 0" }}>
-                        {question}
-                      </List.Header>
-
-                      <BlockContent blocks={answer} />
-                    </List.Content>
+                  <List.Item key={d._key}>
+                    <Text size="lg">{question}</Text>
+                    <BlockContent blocks={answer} />
                   </List.Item>
                 );
               })}
             </List>
-          </Segment>
+          </Group>
         </Container>
       </AnimatePresence>
     </>
