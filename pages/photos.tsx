@@ -86,7 +86,6 @@ const Photos = ({ gallery }) => {
                         objectFit="contain"
                         alt={image.alt}
                         style={{ zIndex: 100 }}
-                        loading="lazy"
                       />
                     </div>
                   </>
@@ -103,6 +102,7 @@ const Photos = ({ gallery }) => {
                 layout="responsive"
                 alt={image.alt}
                 objectFit="cover"
+                loading="lazy"
               />
             </Card.Section>
             <Text mt="sm" size="sm">
