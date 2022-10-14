@@ -1,7 +1,6 @@
 import {
   Affix,
   AppShell,
-  Box,
   Button,
   Container,
   Divider,
@@ -16,7 +15,6 @@ import { IconArrowUp } from "@tabler/icons";
 import { AnimatePresence, motion } from "framer-motion";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -30,7 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
       <AppShell
         header={
           <Header height={50} style={{ background: "rgb(228,228,228)" }}>
-            <Container>
+            <Container size="xl">
               <Link href="/" passHref>
                 <a style={{ textDecoration: "none", color: "black" }}>
                   <Title order={1}>WE ARE TECH</Title>
@@ -42,7 +40,7 @@ const Layout = ({ children }: LayoutProps) => {
         footer={
           <Footer height={80} style={{ backgroundColor: "rgb(222,222,222)" }}>
             <Divider />
-            <Container p="lg">
+            <Container size="xl" p="lg">
               <Text size="xs">This is a footer</Text>
             </Container>
           </Footer>
@@ -59,7 +57,7 @@ const Layout = ({ children }: LayoutProps) => {
         fixed={false}
       >
         <motion.div style={{ flexGrow: "1", paddingBottom: "2rem" }} layout>
-          {children}
+          <Container size="xl">{children}</Container>
         </motion.div>
 
         <Affix position={{ bottom: 20, right: 20 }}>

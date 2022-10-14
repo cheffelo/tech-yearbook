@@ -43,74 +43,71 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
         <title>{name}</title>
       </Head>
 
-      <Container>
-        <Text size="sm" mb="lg">
-          <Link href="/" passHref>
-            <a>
-              <Group align="center">
-                <IconArrowLeft style={{ color: "black" }} /> Back
-              </Group>
-            </a>
-          </Link>
-        </Text>
+      <Text size="sm" mb="lg">
+        <Link href="/" passHref>
+          <a>
+            <Group align="center">
+              <IconArrowLeft style={{ color: "black" }} /> Back
+            </Group>
+          </a>
+        </Link>
+      </Text>
 
-        <Title order={1} mb="lg">
-          {name}
-        </Title>
+      <Title order={1} mb="lg">
+        {name}
+      </Title>
 
-        <Grid justify="start">
-          <Grid.Col sm={6}>
-            <Card radius="md">
-              <Card.Section>
-                <Image
-                  alt={name}
-                  src={urlFor(image).url()}
-                  layout="responsive"
-                  width={2}
-                  height={3}
-                  objectFit="cover"
-                />
-              </Card.Section>
+      <Grid justify="start">
+        <Grid.Col sm={6}>
+          <Card radius="md">
+            <Card.Section>
+              <Image
+                alt={name}
+                src={urlFor(image).url()}
+                layout="responsive"
+                width={2}
+                height={3}
+                objectFit="cover"
+              />
+            </Card.Section>
 
-              <Blockquote>
-                <Text size="lg" weight="bold">
-                  You miss 100% of the shots you don&apos;t take. - Wayne
-                  Gretzky
-                </Text>
-                <Text size="sm" weight="bold" align="right">
-                  - Michael Scott
-                </Text>
-                <Text size="xs" weight="bold" align="right">
-                  - {name}
-                </Text>
-              </Blockquote>
-            </Card>
-          </Grid.Col>
-
-          <Grid.Col sm={6}>
-            <Card p="lg" radius="lg" mb="sm">
-              <Text>
-                <BlockContent value={bio} />
+            <Blockquote>
+              <Text size="lg" weight="bold">
+                You miss 100% of the shots you don&apos;t take. - Wayne Gretzky
               </Text>
-            </Card>
+              <Text size="sm" weight="bold" align="right">
+                - Michael Scott
+              </Text>
+              <Text size="xs" weight="bold" align="right">
+                - {name}
+              </Text>
+            </Blockquote>
+          </Card>
+        </Grid.Col>
 
-            <Card p="lg" radius="lg">
-              <List>
-                {questionnaire.map((d) => {
-                  const { question, answer } = d;
+        <Grid.Col sm={6}>
+          <Card p="lg" radius="lg" mb="sm">
+            <Text>
+              <BlockContent value={bio} />
+            </Text>
+          </Card>
 
-                  return (
-                    <List.Item key={d._key}>
-                      <Text size="lg">{question}</Text>
-                      <BlockContent value={answer} />
-                    </List.Item>
-                  );
-                })}
-              </List>
-            </Card>
-          </Grid.Col>
-        </Grid>
-      </Container>
+          <Card p="lg" radius="lg">
+            <List>
+              {questionnaire.map((d) => {
+                const { question, answer } = d;
+
+                return (
+                  <List.Item key={d._key}>
+                    <Text size="lg">{question}</Text>
+                    <BlockContent value={answer} />
+                  </List.Item>
+                );
+              })}
+            </List>
+          </Card>
+        </Grid.Col>
+      </Grid>
     </>
   );
 };
