@@ -30,7 +30,9 @@ const Photos = ({ gallery }) => {
         </Link>
       </Text>
 
-      <Box sx={{ columnCount: 2, columnGap: 16 }}>
+      <Box
+        sx={{ "@media (min-width: 768px)": { columnCount: 2 }, columnGap: 16 }}
+      >
         {gallery.images.map((image) => (
           <Card
             key={image._key}
