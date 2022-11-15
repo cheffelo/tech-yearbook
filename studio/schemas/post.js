@@ -18,6 +18,17 @@ const post = {
       },
     },
     {
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: { type: "media.tag" },
+        },
+      ],
+    },
+    {
       name: "author",
       title: "Author",
       type: "reference",

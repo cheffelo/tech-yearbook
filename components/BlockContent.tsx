@@ -13,7 +13,11 @@ const BlockContent: typeof PortableText = (props) => {
             return (
               <Image
                 alt="REPLACE ME"
-                src={urlFor(value).url()}
+                src={
+                  value
+                    ? urlFor(value).url()
+                    : "https://via.placeholder.com/512x768"
+                }
                 layout="responsive"
                 width={1}
                 height={1}

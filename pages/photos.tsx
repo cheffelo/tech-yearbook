@@ -81,7 +81,11 @@ const Photos = ({ gallery }) => {
                       <Overlay zIndex={99} blur={5} color="black" />
                       <Image
                         src="null"
-                        loader={({ width }) => urlFor(image).width(width).url()}
+                        loader={({ width }) =>
+                          image
+                            ? urlFor(image).width(width).url()
+                            : "https://via.placeholder.com/512x768"
+                        }
                         layout="fill"
                         objectFit="contain"
                         alt={image.alt}
@@ -96,7 +100,11 @@ const Photos = ({ gallery }) => {
             <Card.Section>
               <Image
                 src="null"
-                loader={({ width }) => urlFor(image).width(width).url()}
+                loader={({ width }) =>
+                  image
+                    ? urlFor(image).width(width).url()
+                    : "https://via.placeholder.com/512x768"
+                }
                 width={image.asset.metadata.dimensions.width}
                 height={image.asset.metadata.dimensions.height}
                 layout="responsive"

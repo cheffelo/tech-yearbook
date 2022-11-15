@@ -20,7 +20,8 @@ const alumn = {
     {
       name: "tag",
       title: "Tag",
-      type: "media.tag",
+      type: "reference",
+      to: { type: "media.tag" },
     },
     {
       name: "image",

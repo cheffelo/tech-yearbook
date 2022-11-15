@@ -62,7 +62,11 @@ const Index = ({ alumni, gallery }) => {
                   <Card.Section style={{ position: "relative" }}>
                     <Image
                       alt={alumn.name}
-                      src={urlFor(alumn.image).width(768).url()}
+                      src={
+                        alumn.image
+                          ? urlFor(alumn.image).width(768).url()
+                          : "https://via.placeholder.com/512x768"
+                      }
                       width={320}
                       height={240}
                       layout="responsive"

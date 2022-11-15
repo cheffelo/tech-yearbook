@@ -63,7 +63,11 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
             <Card.Section>
               <Image
                 alt={name}
-                src={urlFor(image).url()}
+                src={
+                  image
+                    ? urlFor(image).url()
+                    : "https://via.placeholder.com/512x768"
+                }
                 layout="responsive"
                 width={2}
                 height={3}
