@@ -24,13 +24,14 @@ import { IconArrowLeft } from "@tabler/icons";
 
 interface Props {
   alumn: any;
+  images: any;
 }
 
 interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const Alumn: NextPage<Props> = ({ alumn }) => {
+const Alumn: NextPage<Props> = ({ alumn, images }) => {
   if (!alumn) {
     return null;
   }
@@ -111,6 +112,25 @@ const Alumn: NextPage<Props> = ({ alumn }) => {
             </List>
           </Card>
         </Grid.Col>
+
+        <Grid.Col sm={12}>
+          <Title order={2} mb="lg">
+            Images with {name}
+          </Title>
+          <Card p="lg" radius="lg">
+            {images.map((image) => (
+              <Image
+                key={image._id}
+                src={image.url}
+                width={image.metadata.dimensions.width}
+                height={image.metadata.dimensions.height}
+                blurDataURL={image.metadata.lqip}
+                alt={image.altText}
+                layout="responsive"
+              />
+            ))}
+          </Card>
+        </Grid.Col>
       </Grid>
     </>
   );
@@ -136,9 +156,15 @@ export const getStaticProps: GetStaticProps = async ({
     { slug: params.slug || "" }
   );
 
+  const images = await client({ preview }).fetch(
+    groq`*[_type == "sanity.imageAsset" && references($tagRef)]`,
+    { tagRef: alumn.tag._ref }
+  );
+
   return {
     props: {
       alumn,
+      images,
     },
     revalidate: 10,
   };

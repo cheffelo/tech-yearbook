@@ -22,6 +22,7 @@ const alumn = {
       title: "Tag",
       type: "reference",
       to: { type: "media.tag" },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "image",
