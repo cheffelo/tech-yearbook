@@ -54,10 +54,9 @@ const Alumn: NextPage<Props> = ({ alumn, images }) => {
           </a>
         </Link>
       </Text>
-
-      <Title order={1} mb="lg">
-        {name}
-      </Title>
+      <Card radius="lg" mb="lg">
+        <Title order={1}>{name}</Title>
+      </Card>
 
       <Grid justify="start">
         <Grid.Col sm={6}>
@@ -122,17 +121,17 @@ const Alumn: NextPage<Props> = ({ alumn, images }) => {
 
         {images.length > 0 && (
           <Grid.Col sm={12}>
-            <Title order={2} mb="lg">
-              Images with {name}
-            </Title>
             <Card p="lg" radius="lg">
+              <Title order={2} mb="lg">
+                Images with {name}
+              </Title>
               <Carousel align="center" slideGap="md" withIndicators loop>
                 {images.map((image) => (
-                  <Carousel.Slide size="100%" key={image._id}>
+                  <Carousel.Slide size={500} key={image._id}>
                     <MantineImage
                       alt={image.altText}
                       src={image.url}
-                      width={500 * image.metadata.dimensions.aspectRatio}
+                      width={500}
                       height={500}
                       radius="lg"
                     />
