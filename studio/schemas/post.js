@@ -21,7 +21,7 @@ const post = {
       name: "author",
       title: "Author",
       type: "reference",
-      to: { type: "author" },
+      to: { type: "alumn" },
     },
     {
       name: "mainImage",

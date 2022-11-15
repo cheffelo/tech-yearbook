@@ -18,6 +18,11 @@ const alumn = {
       },
     },
     {
+      name: "tag",
+      title: "Tag",
+      type: "media.tag",
+    },
+    {
       name: "image",
       title: "Image",
       type: "image",
