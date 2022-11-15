@@ -12,7 +12,7 @@ import { urlFor } from "../../lib/sanity/urlFor";
 import {
   Blockquote,
   Card,
-  Container,
+  Image as MantineImage,
   Grid,
   Group,
   List,
@@ -21,6 +21,7 @@ import {
 } from "@mantine/core";
 
 import { IconArrowLeft } from "@tabler/icons";
+import { Carousel } from "@mantine/carousel";
 
 interface Props {
   alumn: any;
@@ -92,19 +93,25 @@ const Alumn: NextPage<Props> = ({ alumn, images }) => {
 
         <Grid.Col sm={6}>
           <Card p="lg" radius="lg" mb="sm">
-            <Text>
-              <BlockContent value={bio} />
-            </Text>
+            <Title order={2} mb="md">
+              Bio
+            </Title>
+            <Text>{bio ? <BlockContent value={bio} /> : <em>No bio</em>}</Text>
           </Card>
 
           <Card p="lg" radius="lg">
-            <List>
+            <Title order={2} mb="md">
+              Q&A
+            </Title>
+            <List listStyleType="none">
               {questionnaire.map((d) => {
                 const { question, answer } = d;
 
                 return (
                   <List.Item key={d._key}>
-                    <Text size="lg">{question}</Text>
+                    <Text size="lg">
+                      <strong>{question}</strong>
+                    </Text>
                     <BlockContent value={answer} />
                   </List.Item>
                 );
@@ -113,24 +120,28 @@ const Alumn: NextPage<Props> = ({ alumn, images }) => {
           </Card>
         </Grid.Col>
 
-        <Grid.Col sm={12}>
-          <Title order={2} mb="lg">
-            Images with {name}
-          </Title>
-          <Card p="lg" radius="lg">
-            {images.map((image) => (
-              <Image
-                key={image._id}
-                src={image.url}
-                width={image.metadata.dimensions.width}
-                height={image.metadata.dimensions.height}
-                blurDataURL={image.metadata.lqip}
-                alt={image.altText}
-                layout="responsive"
-              />
-            ))}
-          </Card>
-        </Grid.Col>
+        {images.length > 0 && (
+          <Grid.Col sm={12}>
+            <Title order={2} mb="lg">
+              Images with {name}
+            </Title>
+            <Card p="lg" radius="lg">
+              <Carousel align="center" slideGap="md" withIndicators loop>
+                {images.map((image) => (
+                  <Carousel.Slide size="100%" key={image._id}>
+                    <MantineImage
+                      alt={image.altText}
+                      src={image.url}
+                      width={500 * image.metadata.dimensions.aspectRatio}
+                      height={500}
+                      radius="lg"
+                    />
+                  </Carousel.Slide>
+                ))}
+              </Carousel>
+            </Card>
+          </Grid.Col>
+        )}
       </Grid>
     </>
   );
