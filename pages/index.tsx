@@ -31,7 +31,7 @@ const Index = ({ alumni, gallery }) => {
       <Stack spacing="xl">
         <Group position="apart">
           <Title order={2}>Alumni</Title>
-          <Text size="sm">
+          {/* <Text size="sm">
             <Link href="/alumni" passHref>
               <a>
                 <Group align="center">
@@ -39,7 +39,7 @@ const Index = ({ alumni, gallery }) => {
                 </Group>
               </a>
             </Link>
-          </Text>
+          </Text> */}
         </Group>
 
         <SimpleGrid
@@ -108,7 +108,7 @@ const Index = ({ alumni, gallery }) => {
                 size={`clamp(100px, ${Math.floor(
                   image.asset.metadata.dimensions.aspectRatio * 40
                 )}%, 300px)`}
-                key={image._id}
+                key={image._key}
               >
                 <MantineImage
                   alt={image.alt}

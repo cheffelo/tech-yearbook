@@ -31,7 +31,7 @@ const Layout = ({ children }: LayoutProps) => {
             <Container size="xl">
               <Link href="/" passHref>
                 <a style={{ textDecoration: "none", color: "black" }}>
-                  <Title order={1}>WE ARE TECH</Title>
+                  <Title order={1}>WE ARE TEHC 🦆</Title>
                 </a>
               </Link>
             </Container>
@@ -49,16 +49,18 @@ const Layout = ({ children }: LayoutProps) => {
           main: {
             display: "flex",
             flexDirection: "column",
-            backgroundColor: "#f0f0f0",
+            // gradient
+            backgroundImage:
+              "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(205,205,205,1) 50%, rgba(155,155,155,0) 100%)",
           },
           root: { display: "flex", flexDirection: "column", flex: 1 },
           body: { display: "flex", flexDirection: "column", flex: 1 },
         }}
         fixed={false}
       >
-        <motion.div style={{ flexGrow: "1", paddingBottom: "2rem" }} layout>
+        <div style={{ flexGrow: "1", paddingBottom: "2rem" }}>
           <Container size="xl">{children}</Container>
-        </motion.div>
+        </div>
 
         <Affix position={{ bottom: 20, right: 20 }}>
           <Transition transition="slide-up" mounted={scroll.y > 0}>
